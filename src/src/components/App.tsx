@@ -1,7 +1,12 @@
 import "./App.css";
-import axios from "axios";
-import { useState } from "react";
-import { useQuery } from "@tanstack/react-query";
+// import axios from "axios";
+// import { useState } from "react";
+// import { useQuery } from "@tanstack/react-query";
+// import { useInfiniteQuery } from "@tanstack/react-query";
+// import SearchForm from "./SearchForm/SearchForm";
+// import ArticleList from "./ArticleList/ArticleList";
+// import { fetchArticles } from "../services/articleService";
+import OrderForm from "./SearchForm/Form";
 
 //: Хук UseQuery
 // #region
@@ -23,12 +28,14 @@ import { useQuery } from "@tanstack/react-query";
 //       {isLoading && <p>Завантаження...</p>}
 //       {isError && <p> Виникла помилка: {error.message}</p>}
 
+//       {/* Дата ундефайнд тому треба ставити перевірку */}
 //       {data && <pre>{JSON.stringify(data, null, 2)}</pre>}
 //     </>
 //   );
 // }
 
 // #endregion
+
 //: Ключі Запиту
 // #region
 
@@ -94,3 +101,75 @@ import { useQuery } from "@tanstack/react-query";
 // #endregion
 
 // : Нескінченний список
+// #region
+
+// export default function App() {
+//   const [topic, setTopic] = useState("");
+
+//   const {
+//     data,
+//     fetchNextPage,
+//     hasNextPage,
+//     isFetching,
+//     isFetchingNextPage,
+//     isError,
+//     isLoading,
+//     isFetched,
+//   } = useInfiniteQuery({
+//     queryKey: ["articles", topic],
+//     queryFn: ({ queryKey, pageParam }) => {
+//       const [, currentTopic] = queryKey;
+//       return fetchArticles(currentTopic, pageParam);
+//     },
+//     initialPageParam: 0,
+//     getNextPageParam: (lastResponse) => {
+//       const nextPage = lastResponse.page + 1;
+//       return nextPage < lastResponse.nbPages ? nextPage : undefined;
+//     },
+//     enabled: topic !== "",
+//     select: (data) => {
+//       return {
+//         ...data,
+//         articles: data.pages.flatMap((pages) => pages.hits),
+//       };
+//     },
+//   });
+
+//   const handleSearch = (newTopic: string) => {
+//     setTopic(newTopic);
+//   };
+//   const articles = data?.articles ?? [];
+//   const hasArticles = articles.length > 0;
+//   const showNoResults = isFetched && !isError && !hasArticles;
+//   return (
+//     <>
+//       <SearchForm onSubmit={handleSearch}></SearchForm>
+//       {isLoading && <p>Loading data, please wait...</p>}
+//       {isError && <p>Whoops, something went wrong! Please try again!</p>}
+//       {showNoResults && <p>No articles found. Try another search.</p>}
+
+//       {hasArticles && (
+//         <>
+//           <ArticleList items={articles} />
+//           <button
+//             onClick={() => fetchNextPage()}
+//             disabled={!hasNextPage || isFetching}
+//           >
+//             {isFetchingNextPage
+//               ? "Loading more"
+//               : hasNextPage
+//                 ? "load more"
+//                 : "notihg more to load"}
+//           </button>
+//         </>
+//       )}
+//     </>
+//   );
+// }
+// #endregion
+
+// : Formik - Форми
+
+export default function App() {
+  return <OrderForm />;
+}
